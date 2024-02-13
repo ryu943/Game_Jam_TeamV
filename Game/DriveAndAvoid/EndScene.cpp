@@ -29,7 +29,7 @@ eSceneType EndScene::Update()
  
     {
         // ˆê’èŠÔŒo‰ßŒã‚ÉƒQ[ƒ€‚ğI—¹‚·‚é
-        return eSceneType::E_END;
+        return eSceneType::E_END_SCENE;
     }
 
     return GetNowScene();
@@ -53,5 +53,5 @@ void EndScene::Finalize()
 
 eSceneType EndScene::GetNowScene() const
 {
-    return eSceneType::E_END;
+    return eSceneType::E_END_SCENE;
 }
