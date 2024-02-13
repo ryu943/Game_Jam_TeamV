@@ -10,7 +10,7 @@ cursor_image(NULL), menu_cursor(0)
 
 TitleScene::~TitleScene()
 {
-
+	
 }
 
 //初期化処理
@@ -34,6 +34,7 @@ void TitleScene::Initialize()
 	{
 		throw("Resource/images/cone.bmpがありません\n");
 	}
+
 }
 
 //更新処理
@@ -102,6 +103,7 @@ void TitleScene::Finalize()
 	DeleteGraph(background_image);
 	DeleteGraph(menu_image);
 	DeleteGraph(cursor_image);
+
 }
 
 //現在のシーン情報を取得
