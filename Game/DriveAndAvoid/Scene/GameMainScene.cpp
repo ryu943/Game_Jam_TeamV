@@ -120,16 +120,6 @@ eSceneType GameMainScene::Update()
 	// 障害物生成
 	if (mileage / 20 % 100 == 0)
 	{
-		for (int i = 0; i < 10; i++)
-		{
-			if (enemy[i] == nullptr)
-			{
-				int x = GetRand(640); // 画面の幅内でランダムな x 座標を生成
-				int y = GetRand(480); // 画面の高さ内でランダムな y 座標を生成
-				obstacles[i] = new Obstacle(Vector2D(x, y), barrier_image);
-				break;
-			}
-		}
 	}
 	//プレイヤーの燃料か体力が0未満なら、リザルトに転移する
 	if (player->GetFuel() < 0.0f || player->GetHp() < 0.0f)
