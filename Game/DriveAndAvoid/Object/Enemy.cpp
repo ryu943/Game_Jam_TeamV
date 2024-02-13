@@ -1,6 +1,6 @@
 #include"Enemy.h"
 #include"DxLib.h"
-
+int Enemy::image1;
 Enemy::Enemy(int type, int handle) : type(type), image(handle), speed(0.0f),
 location(0.0f), box_size(0.0f)
 {
@@ -26,20 +26,35 @@ void Enemy::Initialize()
 
 void Enemy::Update(float speed)
 {
-	//ˆÊ’uî•ñ‚ÉˆÚ“®—Ê‚ð‰ÁŽZ‚·‚é
-	location += Vector2D(0.0f, this->speed + speed - 6);
+    // ˆÊ’uî•ñ‚ÉˆÚ“®—Ê‚ð‰ÁŽZ‚·‚é
+    location += Vector2D(0.0f, this->speed + speed - 6);
+
+
 }
 
 void Enemy::Draw()const
 {
 	//“G‰æ‘œ‚Ì•`‰æ
-	DrawRotaGraphF(location.x, location.y, 1.0, 0.0, image, TRUE);
+	//DrawRotaGraphF(location.x, location.y, 1.0, 0.0, image, TRUE);
+	//DrawGraph(location.x, location.y, newImage, FALSE);
+	DrawRotaGraph(location.x, location.y, 1.0, 0.0, image1, TRUE);
 }
 
 void Enemy::Finalize()
 {
 
 }
+
+void Enemy::LoadImages()
+{
+	image1 = LoadGraph("Resources/Images/gomi.png");
+}
+
+void Enemy::DeleteImages()
+{
+	DeleteGraph(image1);
+}
+
 
 
 //“G‚Ìƒ^ƒCƒv‚ðŽæ“¾
