@@ -31,7 +31,7 @@ void GameMainScene::Initialize()
 	barrier_image = LoadGraph("Resource/images/barrier.png");
 	int result = LoadDivGraph("Resource/images/car.bmp", 3, 3, 1, 63, 120,
 		enemy_image);
-
+	int gomi = LoadGraph("Resouce/images/gomi.bmp");
 	//エラーチェック
 	if (back_ground == -1)
 	{
@@ -46,7 +46,10 @@ void GameMainScene::Initialize()
 	{
 		throw("Resource/images/barrier.pngがありません\n");
 	}
-
+	if (gomi == -1)
+	{
+		throw("Resource/images/gomi.pngがありません\n");
+	}
 
 	//オブジェクトの初期化
 	player = new Player;
@@ -114,7 +117,20 @@ eSceneType GameMainScene::Update()
 			}
 		}
 	}
-
+	// 障害物生成
+	if (mileage / 20 % 100 == 0)
+	{
+		for (int i = 0; i < 10; i++)
+		{
+			if (enemy[i] == nullptr)
+			{
+				int x = GetRand(640); // 画面の幅内でランダムな x 座標を生成
+				int y = GetRand(480); // 画面の高さ内でランダムな y 座標を生成
+				obstacles[i] = new Obstacle(Vector2D(x, y), barrier_image);
+				break;
+			}
+		}
+	}
 	//プレイヤーの燃料か体力が0未満なら、リザルトに転移する
 	if (player->GetFuel() < 0.0f || player->GetHp() < 0.0f)
 	{
