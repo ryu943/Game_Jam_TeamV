@@ -3,6 +3,7 @@
 #include"SceneBase.h"
 #include"../Object/Player.h"
 #include"../Object/Enemy.h"
+#include "../Object/Item.h"
 
 class GameMainScene : public SceneBase
 {
@@ -15,7 +16,13 @@ private:
 	int enemy_count[3]; //通り過ぎた敵カウント
 	Player* player; //プレイヤー
 	Enemy** enemy; //敵
+	Item* item; //アイテムのクラス
 
+	typedef struct ItemInfo {
+		int image;
+		//std::string text;
+	};
+	ItemInfo itemInfos[6];
 
 public:
 	GameMainScene();

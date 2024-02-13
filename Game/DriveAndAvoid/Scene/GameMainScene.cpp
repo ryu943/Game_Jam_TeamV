@@ -32,6 +32,24 @@ void GameMainScene::Initialize()
 	int result = LoadDivGraph("Resource/images/car.bmp", 3, 3, 1, 63, 120,
 		enemy_image);
 
+	itemInfos[0].image = LoadGraph("Resources/Images/ha-to.png");
+	//itemInfos[0].text = "残機回復";
+
+	itemInfos[1].image = LoadGraph("Resources/Images/speed_downstream.png");
+	//itemInfos[1].text = "障害物の速度DOWN";
+
+	itemInfos[2].image = LoadGraph("Resources/Images/無敵.png");
+	//itemInfos[2].text = "無敵状態";
+
+	itemInfos[3].image = LoadGraph("Resources/Images/speed_up.png");
+	//itemInfos[3].text = "障害物の速度UP";
+
+	itemInfos[4].image = LoadGraph("Resources/Images/23269489.png");
+	//itemInfos[4].text = "スコアUP";
+
+	itemInfos[5].image = LoadGraph("Resources/Images/player_speed.png");
+	//itemInfos[5].text = "プレイヤーの速度UP";
+
 	//エラーチェック
 	if (back_ground == -1)
 	{
@@ -51,6 +69,9 @@ void GameMainScene::Initialize()
 	//オブジェクトの初期化
 	player = new Player;
 	enemy = new Enemy * [10];
+
+	item = new (Item);
+
 
 	//オブジェクトの初期化
 	player -> Initialize();
@@ -142,7 +163,10 @@ void GameMainScene::Draw() const
 	//プレイヤーの描画
 	player->Draw();
 
-
+	//アイテムの描画
+	if (item != nullptr) {
+		item->Draw();
+	}
 
 	//Ulの描画
 	DrawBox(500, 0, 640, 480, GetColor(0, 153, 0), TRUE);
