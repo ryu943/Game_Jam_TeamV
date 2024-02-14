@@ -13,6 +13,8 @@ enemy(nullptr), item(nullptr)
 		enemy_image[i] = NULL;
 		enemy_count[i] = NULL;
 	}
+
+	Hit = FALSE;
 }
 
 GameMainScene::~GameMainScene()
@@ -115,7 +117,8 @@ eSceneType GameMainScene::Update()
 				enemy[i]->Finalize();
 				delete enemy[i];
 				enemy[i] = nullptr;
-			}
+				Hit = TRUE;
+			}	
 		}
 	}
 
@@ -130,6 +133,25 @@ eSceneType GameMainScene::Update()
 				item = new Item(type, item_img);
 				item->Initialize();
 				break;
+			}
+		}
+	}
+
+	for (int i = 0; i < 10; i++)
+	{
+		if (item != nullptr)
+		{
+			item->Update(player->GetSpeed());
+
+			//当たり判定の確認
+			if (IsHitCheck( item))
+			{
+				player->SetActive(false);
+				player->DecreaseHp(-50.0f);
+				item->Finalize();
+				delete item;
+				item = nullptr;
+				Hit = TRUE;
 			}
 		}
 	}
@@ -172,6 +194,11 @@ void GameMainScene::Draw() const
 	//}
 
 	//Ulの描画
+	if (Hit == TRUE)
+	{
+		DrawFormatString(100, 100, 0x000000, "敵に当たった");
+	}
+	
 	DrawBox(500, 0, 640, 480, GetColor(0, 153, 0), TRUE);
 	SetFontSize(16);
 	DrawFormatString(510, 20, GetColor(0, 0, 0), "ハイスコア");

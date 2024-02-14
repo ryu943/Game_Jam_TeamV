@@ -20,6 +20,8 @@ private:
 	Enemy** enemy; //“G
 	Item* item;
 
+	int Hit;
+
 public:
 	GameMainScene();
 	virtual~GameMainScene();
