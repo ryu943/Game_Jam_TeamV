@@ -6,7 +6,6 @@ class Enemy
 private:
 	int type; //タイプ
 	int image; //画像
-	//画像
 	static int image1;
 	float speed; //速さ
 	Vector2D location; //位置情報

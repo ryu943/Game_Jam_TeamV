@@ -17,9 +17,6 @@ private:
 	Player* player; //ƒvƒŒƒCƒ„[
 	Enemy** enemy; //“G
 
-	int item_image;
-	Item** item;
-
 public:
 	GameMainScene();
 	virtual~GameMainScene();
