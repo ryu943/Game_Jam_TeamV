@@ -3,7 +3,7 @@
 #include"SceneBase.h"
 #include"../Object/Player.h"
 #include"../Object/Enemy.h"
-#include <vector>
+#include "../Object/Item.h"
 
 class GameMainScene : public SceneBase
 {
@@ -12,11 +12,13 @@ private:
 	int back_ground; //”wŒi‰æ‘œ
 	int barrier_image; //ƒoƒŠƒA‰æ‘œ
 	int mileage; //‘–s‹——£
-	int enemy_image[4];//“G‰æ‘œ
-	int enemy_count[4]; //’Ê‚è‰ß‚¬‚½“GƒJƒEƒ“ƒg
+	int enemy_image[3];//“G‰æ‘œ
+	int enemy_count[3]; //’Ê‚è‰ß‚¬‚½“GƒJƒEƒ“ƒg
 	Player* player; //ƒvƒŒƒCƒ„[
 	Enemy** enemy; //“G
-	//int gomi;		
+
+	int item_image;
+	Item* item;
 
 public:
 	GameMainScene();
@@ -25,7 +27,8 @@ public:
 	virtual void Initialize() override;
 	virtual eSceneType Update() override;
 	virtual void Draw() const override;
-	virtual void Finalize() override;
+
+	void Finalize();
 
 	virtual eSceneType GetNowScene() const override;
 

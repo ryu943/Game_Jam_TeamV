@@ -32,6 +32,15 @@ void GameMainScene::Initialize()
 	int result = LoadDivGraph("Resource/images/3nin.png", 3, 3, 1, 63, 120,
 		enemy_image);
 	  enemy_image[3] = LoadGraph("Resource/images/uparupa.png");
+	int result = LoadDivGraph("Resource/images/car.bmp", 3, 3, 1, 63, 120, enemy_image);
+
+	item_image = LoadGraph("Resources/Images/ha-to.png");
+	//itemInfos[0].text = "残機回復";
+
+	//itemInfos[2].image = LoadGraph("Resources/Images/無敵.png");
+	//itemInfos[2].text = "無敵状態";
+
+
 	//エラーチェック
 	if (back_ground == -1)
 	{
@@ -52,6 +61,9 @@ void GameMainScene::Initialize()
 	//オブジェクトの初期化
 	player = new Player;
 	enemy = new Enemy * [10];
+
+	//item = new (Item);
+
 
 	//オブジェクトの初期化
 	player -> Initialize();
@@ -115,6 +127,31 @@ eSceneType GameMainScene::Update()
 			}
 		}
 	}
+
+	//アイテム生成
+	if (mileage / 20 % 100 == 0)
+	{
+		for (int i = 0; i < 10; i++)
+		{
+			if (item == nullptr)
+			{
+				int type = GetRand(3) % 3;
+				item = new Item(type, item_image);
+				item->Initialize();
+				break;
+			}
+		}
+	}
+
+	//当たり判定の確認
+	if (IsHitCheck(player, item[i]))
+	{
+		player->SetActive(false);
+		player->DecreaseHp(-50.0f);
+		enemy[i]->Finalize();
+		delete enemy[i];
+		enemy[i] = nullptr;
+	}
 	// 障害物生成
 	//if (mileage / 20 % 100 == 0)
 	//{
@@ -146,7 +183,7 @@ void GameMainScene::Draw() const
 	//プレイヤーの描画
 	player->Draw();
 
-
+	item->Draw();
 
 	//Ulの描画
 	DrawBox(500, 0, 640, 480, GetColor(0, 153, 0), TRUE);
