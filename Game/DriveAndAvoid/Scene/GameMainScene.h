@@ -28,6 +28,8 @@ public:
 	virtual eSceneType Update() override;
 	virtual void Draw() const override;
 
+	void Finalize();
+
 	virtual eSceneType GetNowScene() const override;
 
 private:
