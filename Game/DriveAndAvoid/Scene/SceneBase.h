@@ -9,6 +9,7 @@ enum eSceneType
 	E_RANKING_DISP,
 	E_RANKING_INPUT,
 	E_RESULT,
+	E_END_SCENE,
 	E_END
 };
 

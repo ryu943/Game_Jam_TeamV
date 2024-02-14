@@ -3,14 +3,14 @@
 #include"DxLib.h"
 
 TitleScene::TitleScene() : background_image(NULL), menu_image(NULL),
-cursor_image(NULL), menu_cursor(0)
+menu_image2(NULL),menu_image3(NULL),cursor_image(NULL),menu_cursor(0)
 {
 
 }
 
 TitleScene::~TitleScene()
 {
-
+	
 }
 
 //初期化処理
@@ -18,7 +18,9 @@ void TitleScene::Initialize()
 {
 	//画像の読み込み
 	background_image = LoadGraph("Resource/images/Title.bmp");
-	menu_image = LoadGraph("Resource/images/menu.bmp");
+	menu_image = LoadGraph("Resource/images/start_m.bmp");
+	menu_image2 = LoadGraph("Resource/images/ranking_m.bmp");
+	menu_image3 = LoadGraph("Resource/images/help_m.bmp");
 	cursor_image = LoadGraph("Resource/images/cone.bmp");
 
 	//エラーチェック
@@ -28,13 +30,24 @@ void TitleScene::Initialize()
 	}
 	if (menu_image == -1)
 	{
-		throw("Resource/images/menu.bmpがありません\n");
+		throw("Resource/images/start_m.bmpがありません\n");
+	}
+	if (menu_image2 == -1)
+	{
+		throw("Resource/images/ranking_m.bmpがありません\n");
+	}
+	if (menu_image3 == -1)
+	{
+		throw("Resource/images/help_m.bmpがありません\n");
 	}
 	if (cursor_image == -1)
 	{
 		throw("Resource/images/cone.bmpがありません\n");
 	}
+
 }
+
+
 
 //更新処理
 eSceneType TitleScene::Update()
@@ -60,10 +73,12 @@ eSceneType TitleScene::Update()
 			menu_cursor = 3;
 		}
 	}
+	
 
 	//カーソル決定(決定した画面に遷移する)
 	if (InputControl::GetButtonDown(XINPUT_BUTTON_B))
 	{
+
 		switch(menu_cursor)
 		{
 		case 0:
@@ -73,7 +88,7 @@ eSceneType TitleScene::Update()
 		case 2:
 			return eSceneType::E_HELP;
 		default:
-			return eSceneType::E_END;
+			return eSceneType::E_END_SCENE;
 		}
 	}
 
@@ -89,11 +104,16 @@ void TitleScene::Draw() const
 
 	//メニュー画像の描画
 	DrawGraph(120, 200, menu_image, TRUE);
+	DrawGraph(120, 240, menu_image2, TRUE);
+	DrawGraph(100, 280, menu_image3, TRUE);
 
 	//カーソル画像の描画
 	DrawRotaGraph(90, 220 + menu_cursor * 40, 0.7, DX_PI / 2.0, cursor_image,
 		TRUE);
+
+
 }
+
 
 //終了時処理
 void TitleScene::Finalize()
@@ -109,3 +129,4 @@ eSceneType TitleScene::GetNowScene() const
 {
 	return eSceneType::E_TITLE;
 }
+
