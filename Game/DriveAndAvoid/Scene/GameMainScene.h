@@ -12,13 +12,13 @@ private:
 	int back_ground; //”wŒi‰æ‘œ
 	int barrier_image; //ƒoƒŠƒA‰æ‘œ
 	int mileage; //‘–s‹——£
-	int enemy_image[3];//“G‰æ‘œ
-	int enemy_count[3]; //’Ê‚è‰ß‚¬‚½“GƒJƒEƒ“ƒg
+	int enemy_image[4];//“G‰æ‘œ
+	int enemy_count[4]; //’Ê‚è‰ß‚¬‚½“GƒJƒEƒ“ƒg
 	Player* player; //ƒvƒŒƒCƒ„[
 	Enemy** enemy; //“G
 
-	int item_image;
-	Item* item;
+	//int item_image;
+	//Item* item;
 
 public:
 	GameMainScene();

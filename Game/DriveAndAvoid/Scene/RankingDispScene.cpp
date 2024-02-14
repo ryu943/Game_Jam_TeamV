@@ -16,7 +16,7 @@ RankingDispScene::~RankingDispScene()
 void RankingDispScene::Initialize()
 {
 	//画像の読み込み
-	background_image = LoadGraph("Resource/images/carbon1.png");
+	background_image = LoadGraph("Resource/images/Rankingcar.png");
 
 	//エラーチェック
 	if (background_image == -1)
@@ -44,8 +44,8 @@ eSceneType RankingDispScene::Update()
 void RankingDispScene::Draw() const
 {
 	//背景画像の描画
-	DrawGraph(0, 0, background_image, FALSE);
-	//SetFontSize(64);
+	DrawGraph(0, 100, background_image, FALSE);
+	SetFontSize(20);
 	//取得したランキングデータを描画する
 	for (int i = 0; i < 5; i++)
 	{
@@ -54,8 +54,10 @@ void RankingDispScene::Draw() const
 	}
 	
 	//DrawString(150, 300, "Bでタイトル", 0xff0000);
-	SetFontSize(16);
-	DrawString(150, 450, " Bでタイトル ", 0xffffff, 0);
+	SetFontSize(64);
+	DrawString(200, 100, " RANKING ", 0xffffff, 0);
+	DrawString(220, 450, " Bでタイトル ", 0xffffff, 0);
+	
 }
 //終了時処理
 void RankingDispScene::Finalize()
