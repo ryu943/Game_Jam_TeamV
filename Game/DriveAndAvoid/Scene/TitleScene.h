@@ -14,7 +14,7 @@ private:
 
 	std::clock_t cursor_selected_time;
 
-	const double transition_delay = 0.5;
+	const double transition_delay = 0.1;
 public:
 	TitleScene();
 	virtual~TitleScene();

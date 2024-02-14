@@ -63,6 +63,20 @@ void EndScene::Draw() const
     //エンド画像の描画
     DrawGraph(220, 400, end_image, TRUE);
 
+    DrawString(100, 50, "制作<チームV>", GetColor(255, 255, 255));
+    
+    // メンバー1の名前を描画
+    DrawString(50,100, "石嶺　龍", GetColor(255, 255, 255));
+
+    // メンバー2の名前を描画
+    DrawString(50, 150, "當銘　耀斗", GetColor(255, 255, 255));
+
+    // メンバー3の名前を描画
+    DrawString(50, 200, "新田　陽人", GetColor(255, 255, 255));
+
+    // メンバー4の名前を描画
+    DrawString(50, 250, "前泊　愛翔", GetColor(255, 255, 255));
+
 }
 
 //終了時処理

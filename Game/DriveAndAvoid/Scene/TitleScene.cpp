@@ -161,8 +161,6 @@ void TitleScene::Draw() const
 		}
 		break;
 	}
-
-
 }
 
 
