@@ -3,6 +3,7 @@
 #include"SceneBase.h"
 #include"../Object/Player.h"
 #include"../Object/Enemy.h"
+#include "../Object/Item.h"
 
 class GameMainScene : public SceneBase
 {
@@ -16,6 +17,8 @@ private:
 	Player* player; //ÉvÉåÉCÉÑÅ[
 	Enemy** enemy; //ìG
 
+	int item_image;
+	Item* item;
 
 public:
 	GameMainScene();
@@ -24,7 +27,8 @@ public:
 	virtual void Initialize() override;
 	virtual eSceneType Update() override;
 	virtual void Draw() const override;
-	virtual void Finalize() override;
+
+	void Finalize();
 
 	virtual eSceneType GetNowScene() const override;
 

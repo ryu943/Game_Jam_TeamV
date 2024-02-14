@@ -1,5 +1,4 @@
 #pragma once
-
 #include"../Utility/Vector2D.h"
 
 class Enemy
