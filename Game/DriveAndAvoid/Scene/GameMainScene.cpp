@@ -139,15 +139,15 @@ eSceneType GameMainScene::Update()
 		}
 	}
 
-	//当たり判定の確認
-	if (IsHitCheck(player, item[i]))
-	{
-		player->SetActive(false);
-		player->DecreaseHp(-50.0f);
-		enemy[i]->Finalize();
-		delete enemy[i];
-		enemy[i] = nullptr;
-	}
+	////当たり判定の確認
+	//if (IsHitCheck(player, item[i]))
+	//{
+	//	player->SetActive(false);
+	//	player->DecreaseHp(-50.0f);
+	//	enemy[i]->Finalize();
+	//	delete enemy[i];
+	//	enemy[i] = nullptr;
+	//}
 
 	//プレイヤーの燃料か体力が0未満なら、リザルトに転移する
 	if (player->GetFuel() < 0.0f || player->GetHp() < 0.0f)
