@@ -32,7 +32,7 @@ void GameMainScene::Initialize()
 	int result = LoadDivGraph("Resource/images/3nin.png", 3, 3, 1, 63, 120,
 		enemy_image);
 	  enemy_image[3] = LoadGraph("Resource/images/uparupa.png");
-	int result = LoadDivGraph("Resource/images/car.bmp", 3, 3, 1, 63, 120, enemy_image);
+	//int result = LoadDivGraph("Resource/images/car.bmp", 3, 3, 1, 63, 120, enemy_image);
 
 	item_image = LoadGraph("Resources/Images/ha-to.png");
 	//itemInfos[0].text = "残機回復";
@@ -143,15 +143,15 @@ eSceneType GameMainScene::Update()
 		}
 	}
 
-	//当たり判定の確認
-	if (IsHitCheck(player, item[i]))
-	{
-		player->SetActive(false);
-		player->DecreaseHp(-50.0f);
-		enemy[i]->Finalize();
-		delete enemy[i];
-		enemy[i] = nullptr;
-	}
+	////当たり判定の確認
+	//if (IsHitCheck(player, item[i]))
+	//{
+	//	player->SetActive(false);
+	//	player->DecreaseHp(-50.0f);
+	//	enemy[i]->Finalize();
+	//	delete enemy[i];
+	//	enemy[i] = nullptr;
+	//}
 	// 障害物生成
 	//if (mileage / 20 % 100 == 0)
 	//{
