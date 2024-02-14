@@ -8,7 +8,7 @@ barrier_image(NULL),
 mileage(0), player(nullptr),
 enemy(nullptr)
 {
-	for (int i = 0; i < 3; i++)
+	for (int i = 0; i < 4; i++)
 	{
 		enemy_image[i] = NULL;
 		enemy_count[i] = NULL;
@@ -29,10 +29,15 @@ void GameMainScene::Initialize()
 	//画像の読み込み
 	back_ground = LoadGraph("Resource/images/back.bmp");
 	barrier_image = LoadGraph("Resource/images/barrier.png");
+	int result = LoadDivGraph("Resource/images/3nin.png", 3, 3, 1, 63, 120,
+		enemy_image);
+	  enemy_image[3] = LoadGraph("Resource/images/uparupa.png");
 	int result = LoadDivGraph("Resource/images/car.bmp", 3, 3, 1, 63, 120, enemy_image);
 
 	item_image = LoadGraph("Resources/Images/ha-to.png");
-	//item_image[1] = LoadGraph("Resources/Images/無敵.png");
+	//itemInfos[0].text = "残機回復";
+
+	//itemInfos[2].image = LoadGraph("Resources/Images/無敵.png");
 	//itemInfos[2].text = "無敵状態";
 
 
@@ -44,17 +49,21 @@ void GameMainScene::Initialize()
 
 	if (result == -1)
 	{
-		throw("Resource/images/car.bmpがありません\n");
+		throw("Resource/images/3nin.pngがありません\n");
 	}
 	if (barrier_image == -1)
 	{
 		throw("Resource/images/barrier.pngがありません\n");
 	}
+	
 
 
 	//オブジェクトの初期化
 	player = new Player;
 	enemy = new Enemy * [10];
+
+	//item = new (Item);
+
 
 	//オブジェクトの初期化
 	player -> Initialize();
@@ -71,7 +80,6 @@ eSceneType GameMainScene::Update()
 {
 	//プレイヤーの更新
 	player->Update();
-	//item->Update();
 
 	//移動距離の更新
 	mileage+= (int)player->GetSpeed
@@ -84,7 +92,7 @@ eSceneType GameMainScene::Update()
 		{
 			if (enemy[i] == nullptr)
 			{
-				int type = GetRand(3) % 3;
+				int type = GetRand(4) % 4;
 				enemy[i] = new Enemy(type, enemy_image[type]);
 				enemy[i]->Initialize();
 				break;
@@ -120,31 +128,34 @@ eSceneType GameMainScene::Update()
 		}
 	}
 
-	////アイテム生成
+	//アイテム生成
+	if (mileage / 20 % 100 == 0)
+	{
+		for (int i = 0; i < 10; i++)
+		{
+			if (item == nullptr)
+			{
+				int type = GetRand(3) % 3;
+				item = new Item(type, item_image);
+				item->Initialize();
+				break;
+			}
+		}
+	}
+
+	//当たり判定の確認
+	if (IsHitCheck(player, item[i]))
+	{
+		player->SetActive(false);
+		player->DecreaseHp(-50.0f);
+		enemy[i]->Finalize();
+		delete enemy[i];
+		enemy[i] = nullptr;
+	}
+	// 障害物生成
 	//if (mileage / 20 % 100 == 0)
 	//{
-	//	for (int i = 0; i < 10; i++)
-	//	{
-	//		if (item == nullptr)
-	//		{
-	//			int type = GetRand(3) % 3;
-	//			item = new Item(type, item_image);
-	//			item->Initialize();
-	//			break;
-	//		}
-	//	}
 	//}
-
-	////当たり判定の確認
-	//if (IsHitCheck(player, item[i]))
-	//{
-	//	player->SetActive(false);
-	//	player->DecreaseHp(-50.0f);
-	//	enemy[i]->Finalize();
-	//	delete enemy[i];
-	//	enemy[i] = nullptr;
-	//}
-
 	//プレイヤーの燃料か体力が0未満なら、リザルトに転移する
 	if (player->GetFuel() < 0.0f || player->GetHp() < 0.0f)
 	{
@@ -172,6 +183,8 @@ void GameMainScene::Draw() const
 	//プレイヤーの描画
 	player->Draw();
 
+	item->Draw();
+
 	//Ulの描画
 	DrawBox(500, 0, 640, 480, GetColor(0, 153, 0), TRUE);
 	SetFontSize(16);
@@ -188,7 +201,7 @@ void GameMainScene::Draw() const
 		DrawFormatString(510, 200, GetColor(0, 0, 0), "走行距離");
 		DrawFormatString(510, 220, GetColor(255, 255, 255), "%08d", mileage / 10);
 		DrawFormatString(510, 240, GetColor(0, 0, 0), "スピード");
-	DrawFormatString(555, 260, GetColor(255, 255, 255), "%08.1f",
+		DrawFormatString(555, 260, GetColor(255, 255, 255), "%08.1f",
 		player->GetSpeed());
 
 	//バリア枚数の描画

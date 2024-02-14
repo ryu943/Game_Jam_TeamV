@@ -1,15 +1,17 @@
 #pragma once
 #include"../Utility/Vector2D.h"
-
+#include "DxLib.h"
 class Enemy
 {
 private:
 	int type; //タイプ
 	int image; //画像
+	//画像
+	static int image1;
 	float speed; //速さ
 	Vector2D location; //位置情報
 	Vector2D box_size; //当たり判定の大きさ
-
+	//int newImage = LoadGraph("Resorce/images/gomi.png");
 public:
 	Enemy(int type, int handle); 
 	~Enemy();
@@ -18,7 +20,8 @@ public:
 	void Update(float speed);//更新処理
 	void Draw()const;//描画処理
 	void Finalize();//終了時処理
-
+	static void LoadImages();
+	static void DeleteImages();
 	int GetType()const;//タイプ取得
 	Vector2D GetLocation() const;//位置情報の取得
 	Vector2D GetBoxSize() const;//当たり判定の大きさを取得
