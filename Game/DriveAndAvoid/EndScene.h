@@ -5,7 +5,12 @@
 class EndScene : public SceneBase
 {
 private:
+    int countdown_timer;
+    int start_time;
     int background_image;//背景画像
+    int end_image;       //エンドボタン画像
+    int cursor_image; //カーソル画像
+    int menu_cursor; //メニューカーソル番号
 
 public:
     EndScene();
