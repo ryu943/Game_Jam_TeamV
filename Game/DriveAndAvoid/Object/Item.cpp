@@ -1,8 +1,11 @@
 #include "Item.h"
+#include"DxLib.h"
+#include "../Scene/GameMainScene.h"
 
 Item::Item(int type, int handle) : type(type), image(handle), speed(0.0f),
 location(0.0f), box_size(0.0f)
 {
+	Itemimg = LoadGraph("Resource/images/ha-to.png");
 }
 
 Item::~Item()
@@ -24,18 +27,19 @@ void Item::Initialize()
 void Item::Update(float speed)
 {
 	float x = 0.0f;
-	//
 	if (type == 3)
 	{
 		x += 1.0f;
 	}
 	// 位置情報に移動量を加算する
 	location += Vector2D(x, this->speed + speed - 6);
+
 }
 
 void Item::Draw() const
 {
-	DrawGraph(location.x, location.y, Itemimg, FALSE);
+	//アイテム画像の描画
+	DrawGraph(location.x, location.y, Itemimg, TRUE);
 }
 
 void Item::Finalize()
