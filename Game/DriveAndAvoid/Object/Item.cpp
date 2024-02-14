@@ -63,7 +63,7 @@ Item::~Item()
 }
 
 //初期化処理
-void Item::Initialize()
+void Enemy::Initialize()
 {
 	//出現させるx座標パターンを取得
 	float random_x = (float)(GetRand(4) * 105 + 40);
@@ -75,13 +75,13 @@ void Item::Initialize()
 	speed = (float)(this->type * 2);
 }
 
-void Item::Update(float speed)
+void Enemy::Update(float speed)
 {
 	//位置情報に移動量を加算する
 	location += Vector2D(0.0f, this->speed + speed - 6);
 }
 
-void Item::Draw() const
+void Enemy::Draw() const
 {
 	DrawRotaGraphF(location.x, location.y, 1.0, 0.0, image, TRUE);
 }

@@ -43,8 +43,8 @@ public:
     void Finalize();//終了時処理
 
     int GetType()const;//タイプ取得
-    Vector2D GetLocation() const;//位置情報の取得
-    Vector2D GetBoxSize() const;//当たり判定の大きさを取得
+    //Vector2D GetLocation() const;//位置情報の取得
+    //Vector2D GetBoxSize() const;//当たり判定の大きさを取得
 
 };
 
