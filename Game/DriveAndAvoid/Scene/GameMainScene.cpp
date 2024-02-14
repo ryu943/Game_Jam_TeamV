@@ -32,9 +32,7 @@ void GameMainScene::Initialize()
 	int result = LoadDivGraph("Resource/images/car.bmp", 3, 3, 1, 63, 120, enemy_image);
 
 	item_image = LoadGraph("Resources/Images/ha-to.png");
-	//itemInfos[0].text = "残機回復";
-
-	//itemInfos[2].image = LoadGraph("Resources/Images/無敵.png");
+	//item_image[1] = LoadGraph("Resources/Images/無敵.png");
 	//itemInfos[2].text = "無敵状態";
 
 
@@ -58,9 +56,6 @@ void GameMainScene::Initialize()
 	player = new Player;
 	enemy = new Enemy * [10];
 
-	//item = new (Item);
-
-
 	//オブジェクトの初期化
 	player -> Initialize();
 
@@ -76,6 +71,7 @@ eSceneType GameMainScene::Update()
 {
 	//プレイヤーの更新
 	player->Update();
+	//item->Update();
 
 	//移動距離の更新
 	mileage+= (int)player->GetSpeed
@@ -124,30 +120,30 @@ eSceneType GameMainScene::Update()
 		}
 	}
 
-	//アイテム生成
-	if (mileage / 20 % 100 == 0)
-	{
-		for (int i = 0; i < 10; i++)
-		{
-			if (item == nullptr)
-			{
-				int type = GetRand(3) % 3;
-				item = new Item(type, item_image);
-				item->Initialize();
-				break;
-			}
-		}
-	}
+	////アイテム生成
+	//if (mileage / 20 % 100 == 0)
+	//{
+	//	for (int i = 0; i < 10; i++)
+	//	{
+	//		if (item == nullptr)
+	//		{
+	//			int type = GetRand(3) % 3;
+	//			item = new Item(type, item_image);
+	//			item->Initialize();
+	//			break;
+	//		}
+	//	}
+	//}
 
-	//当たり判定の確認
-	if (IsHitCheck(player, item[i]))
-	{
-		player->SetActive(false);
-		player->DecreaseHp(-50.0f);
-		enemy[i]->Finalize();
-		delete enemy[i];
-		enemy[i] = nullptr;
-	}
+	////当たり判定の確認
+	//if (IsHitCheck(player, item[i]))
+	//{
+	//	player->SetActive(false);
+	//	player->DecreaseHp(-50.0f);
+	//	enemy[i]->Finalize();
+	//	delete enemy[i];
+	//	enemy[i] = nullptr;
+	//}
 
 	//プレイヤーの燃料か体力が0未満なら、リザルトに転移する
 	if (player->GetFuel() < 0.0f || player->GetHp() < 0.0f)
@@ -175,8 +171,6 @@ void GameMainScene::Draw() const
 
 	//プレイヤーの描画
 	player->Draw();
-
-	item->Draw();
 
 	//Ulの描画
 	DrawBox(500, 0, 640, 480, GetColor(0, 153, 0), TRUE);

@@ -18,7 +18,7 @@ private:
 	Enemy** enemy; //“G
 
 	int item_image;
-	Item* item;
+	Item** item;
 
 public:
 	GameMainScene();
