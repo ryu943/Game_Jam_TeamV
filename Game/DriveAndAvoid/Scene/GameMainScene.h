@@ -16,13 +16,9 @@ private:
 	int enemy_count[3]; //通り過ぎた敵カウント
 	Player* player; //プレイヤー
 	Enemy** enemy; //敵
-	Item* item; //アイテムのクラス
 
-	typedef struct ItemInfo {
-		int image;
-		//std::string text;
-	};
-	ItemInfo itemInfos[6];
+	int item_image;
+	Item* item;
 
 public:
 	GameMainScene();
@@ -31,7 +27,6 @@ public:
 	virtual void Initialize() override;
 	virtual eSceneType Update() override;
 	virtual void Draw() const override;
-	virtual void Finalize() override;
 
 	virtual eSceneType GetNowScene() const override;
 

@@ -2,43 +2,13 @@
 #include"DxLib.h"
 #define _USE_MATH_DEFINES
 #include <math.h>
+#include "../Utility/Vector2D.h"
+#include "../Scene/GameMainScene.h"
 
 //初期化
-Item::Item()
+Item::Item(int type, int handle) : type(type), image(handle), speed(0.0f),
+location(0.0f), box_size(0.0f)
 {
-	//アイテムの効果をランダムで決める
-	int a = GetRand(5);
-
-	//キャスト<変換元>(変換するやつ)
-	//         int      ←float
-	type = static_cast<ITEM_TYPE>(a);
-	location.x = GetRand(900);
-	location.y = -100;
-	radius = 20;
-
-	switch (type)
-	{
-	case ITEM_TYPE::lifeup:
-		image = LoadGraph("Resources/Images/ha-to.png");
-		break;
-	case ITEM_TYPE::speed_reduction:
-		image = LoadGraph("Resources/Images/speed_downstream.png");
-		break;
-	case ITEM_TYPE::barrier:
-		image = LoadGraph("Resources/Images/無敵.png");
-		break;
-	case ITEM_TYPE::speed_up:
-		image = LoadGraph("Resources/Images/speed_up.png");
-		break;
-	case ITEM_TYPE::score_up:
-		image = LoadGraph("Resources/Images/23269489.png");
-		break;
-	case ITEM_TYPE::player_speed_up:
-		image = LoadGraph("Resources/Images/player_speed.png");
-		break;
-	default:
-		break;
-	}
 
 }
 
@@ -48,33 +18,42 @@ Item::~Item()
 
 }
 
-//描画以外の処理の更新
-void Item::Update(int speed)
+void Item::Initialize()
 {
-	location.y += speed;
+	//出現させるx座標パターンを取得
+	float random_x = (float)(GetRand(4) * 105 + 40);
+	//生産位置の設定
+	location = Vector2D(random_x, -50.0f);
+	//当たり判定の設定
+	box_size = Vector2D(31.0f, 60.0f);
+	//速さの設定
+	speed = (float)(this->type * 2);
 }
 
+//描画以外の処理の更新
+void Item::Update(float speed)
+{
+	//位置情報に移動量を加算する
+	location += Vector2D(0.0f, this->speed + speed - 6);
+}
 
-//描画のみ
+//描画の
 void Item::Draw() const
 {
-	DrawRotaGraph(location.x, location.y, 1.5f, (M_PI / 180), image, TRUE);
-	//DrawCircle(location.x, location.y, radius, GetColor(255, 0, 0), TRUE);
+	DrawRotaGraphF(location.x, location.y, 1.0, 0.0, image, TRUE);
 }
 
-void Item::SetRadius(bool a)
-{
-	if (a)
-	{
-		radius = 60;
-	}
-	else
-	{
-		radius = 20;
-	}
-}
-
-ITEM_TYPE Item::GetType()
+int Item::GetType() const
 {
 	return type;
+}
+
+Vector2D Item::GetLocation() const
+{
+	return location;
+}
+
+Vector2D Item::GetBoxSize() const
+{
+	return box_size;
 }
