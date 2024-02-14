@@ -2,8 +2,7 @@
 #include "../Utility/SphereCollider.h"
 #include"../Utility/common.h"
 
-class Item :
-    public SphereCollider
+class Item : public SphereCollider
 {
 private:
     int image; //ƒAƒCƒeƒ€‰æ‘œ
