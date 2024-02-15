@@ -16,12 +16,12 @@ HelpScene::~HelpScene()
 void HelpScene::Initialize()
 {
 	//画像の読み込み
-	background_image = LoadGraph("Resource/images/Title.bmp");
+	background_image = LoadGraph("Resource/images/haikei2.bmp");
 
 	//エラーチェック
 	if (background_image == -1)
 	{
-		throw("Resource/images/Title.bmpがありません\n");
+		throw("Resource/images/haikei2.bmpがありません\n");
 	}
 }
 
@@ -44,15 +44,15 @@ void HelpScene::Draw() const
 	DrawGraph(0, 0, background_image, FALSE);
 
 	//ゲーム説明
-	SetFontSize(16);
-	DrawString(20, 120, "ヘルプ画面", 0xffffff, 0);
+	SetFontSize(20);
+	DrawString(20, 1200, "ヘルプ画面",GetColor(0,0,255));
 
-	DrawString(20, 160, "これは自動車を避けながら", 0xffffff, 0);
-	DrawString(20, 180, "走り続けるゲームです", 0xffffff, 0);
-	DrawString(20, 200, "燃料が尽きるか自動車に", 0xffffff, 0);
-	DrawString(20, 220, "数回当たるとゲームオーバーです", 0xffffff, 0);
+	DrawString(20, 160, "これは人間を避けながら", GetColor(0,0,255));
+	DrawString(20, 180, "走り続けるゲームです", GetColor(0,0,255));
+	DrawString(20, 200, "燃料が尽きるか人間に", GetColor(0,0,255));
+	DrawString(20, 220, "数回当たるとゲームオーバーです", GetColor(0,0,255));
 
-	DrawString(150, 450, "---- Bボタンを押してタイトルへ戻る----", 0xffffff, 0);
+	DrawString(150, 450, "---- Bボタンを押してタイトルへ戻る----", GetColor(255,0,0));
 }
 
 //終了時処理
