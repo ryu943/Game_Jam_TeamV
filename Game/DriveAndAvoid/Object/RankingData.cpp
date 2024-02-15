@@ -137,7 +137,7 @@ void RankingData::SortData()
 	//対象ファイルに書き込み
 	for (int i = 0; i < 5; i++)
 	{
-		fprintf(fp, "%d,%d,%s,\n", score[i], rank[i], name[i]);
+		fprintf(fp, "%1d,%10d,%10s,\n", score[i], rank[i], name[i]);
 	}
 
 	//ファイルクローズ

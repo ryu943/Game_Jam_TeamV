@@ -19,7 +19,7 @@ RankingInputScene::~RankingInputScene()
 void RankingInputScene::Initialize()
 {
 	//画像の読み込み
-	background_image = LoadGraph("Resource/images/Ranking.bmp");
+	background_image = LoadGraph("Resource/images/oji3.png");
 
 //エラーチェック
 if (background_image == -1)
@@ -78,11 +78,11 @@ void RankingInputScene::Draw() const
 	DrawGraph(0, 0, background_image, TRUE);
 
 	//名前入力指示文字列の描画
-	DrawString(150, 100, "ランキングに登録します", 0xFFFFFF);
+	DrawString(400, 300, "名前を入力してください", 0xFFFFFF);
 	DrawFormatString(100, 220, GetColor(255, 255, 255), ">%s", name);
 
 	//選択用文字を描画
-	const int font_size = 25;
+	const int font_size = 26;
 	for (int i = 0; i < 26; i++)
 	{
 		int x = (i % 13) * font_size + 15;

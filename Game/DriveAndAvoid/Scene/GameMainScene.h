@@ -17,7 +17,7 @@ private:
 	Player* player; //ƒvƒŒƒCƒ„[
 	Enemy** enemy; //“G
 	Item* item;
-
+	bool PauseFlg;          //ˆê’â~’†‚©”»’f
 	int GameMainBGM;
 	//int item_image;
 	//Item* item;

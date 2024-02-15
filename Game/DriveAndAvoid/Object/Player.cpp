@@ -60,10 +60,10 @@ void Player::Update()
 	//加減速処理
 	Acceleration();
 
-	if (InputControl::GetButtonDown(XINPUT_BUTTON_START))
+	/*if (InputControl::GetButtonDown(XINPUT_BUTTON_START))
 	{
 		is_active = false;
-	}
+	}*/
 
 	//バリア処理
 	if (InputControl::GetButtonDown(XINPUT_BUTTON_B) && barrier_count > 0)
@@ -208,20 +208,20 @@ void Player::Movement()
 //加減速処理
 void Player::Acceleration()
 {
-	//LBボタンが押されたら、減速する
-	if (InputControl::GetButtonDown(XINPUT_BUTTON_LEFT_SHOULDER) && speed>
-		1.0f)
-	{
-		speed -= 1.0f;
-	}
+	////LBボタンが押されたら、減速する
+	//if (InputControl::GetButtonDown(XINPUT_BUTTON_LEFT_SHOULDER) && speed>
+	//	1.0f)
+	//{
+	//	speed -= 1.0f;
+	//}
 
-	//RBボタンが押されたら、加速する
-	if (InputControl::GetButtonDown(XINPUT_BUTTON_RIGHT_SHOULDER) && speed<
-		10.0f)
-	{
-		speed += 1.0f;
-	}
-	
+	////RBボタンが押されたら、加速する
+	//if (InputControl::GetButtonDown(XINPUT_BUTTON_RIGHT_SHOULDER) && speed<
+	//	10.0f)
+	//{
+	//	speed += 1.0f;
+	//}
+	//
 }
 
 void Player::IncreaseSpeed(float amount)
