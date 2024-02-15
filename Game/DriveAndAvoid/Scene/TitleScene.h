@@ -1,7 +1,7 @@
 #pragma once
 
 #include"SceneBase.h"
-#include <ctime>
+
 
 class TitleScene : public SceneBase
 {
@@ -16,10 +16,6 @@ private:
 	int DecisionSE;
 	int SelectSE;
 	
-
-	std::clock_t cursor_selected_time;
-
-	const double transition_delay = 0.1;
 public:
 	TitleScene();
 	virtual~TitleScene();
