@@ -13,6 +13,11 @@ private:
 	int end;
 	int select;
 	bool Once;
+
+	int TitleBGM;
+	int DecisionSE;
+	int SelectSE;
+
 public:
 	RankingDispScene();
 	virtual~RankingDispScene();

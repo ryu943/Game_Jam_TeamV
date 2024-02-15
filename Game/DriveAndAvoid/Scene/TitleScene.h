@@ -15,7 +15,6 @@ private:
 	int TitleBGM;
 	int DecisionSE;
 	int SelectSE;
-	
 
 	std::clock_t cursor_selected_time;
 

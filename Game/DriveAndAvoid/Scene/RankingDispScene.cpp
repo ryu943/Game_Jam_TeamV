@@ -19,7 +19,9 @@ RankingDispScene::RankingDispScene() : background_image(NULL), ranking(nullptr)
 
 RankingDispScene::~RankingDispScene()
 {
-
+	//BGMの削除
+	DeleteSoundMem(TitleBGM);
+	StopSoundMem(TitleBGM);
 }
 
 //初期化処理
@@ -39,6 +41,15 @@ void RankingDispScene::Initialize()
 		throw("Resource/images/Rankingcar.bmpがありません\n");
 	}
 
+	//BGMの読み込み
+	((TitleBGM = LoadSoundMem("Resource/sounds/BGM/title_bgm.wav")) == -1);
+	// SEの読み込み
+	((DecisionSE = LoadSoundMem("Resource/Sounds/SE/Cursor_SE.wav")) == -1);
+	((SelectSE = LoadSoundMem("Resource/Sounds/SE/Kettei_SE.wav")) == -1);
+
+	//BGMの音量変更
+	ChangeVolumeSoundMem(140, TitleBGM);
+
 	//ランキング情報を取得
 	ranking = new RankingData;
 	ranking->Initialize();
@@ -47,6 +58,12 @@ void RankingDispScene::Initialize()
 //更新処理
 eSceneType RankingDispScene::Update()
 {
+	//BGMの再生
+	if (CheckSoundMem(TitleBGM) == 0)
+	{
+		PlaySoundMem(TitleBGM, DX_PLAYTYPE_LOOP, TRUE);
+	}
+
 	//Bボタンが押されたら、タイトルに戻る
 	/*if (InputControl::GetButtonDown(XINPUT_BUTTON_B))
 	{
@@ -56,7 +73,7 @@ eSceneType RankingDispScene::Update()
 	//十字キー（上）入力
 	if (InputControl::GetButtonDown(XINPUT_BUTTON_DPAD_DOWN))
 	{
-		//PlaySoundMem(SelectSE, DX_PLAYTYPE_BACK, TRUE);
+		PlaySoundMem(SelectSE, DX_PLAYTYPE_BACK, TRUE);
 		select++;
 		if (select > 1)select = 0;
 
@@ -64,7 +81,7 @@ eSceneType RankingDispScene::Update()
 	//十字キー（下）入力
 	if (InputControl::GetButtonDown(XINPUT_BUTTON_DPAD_UP))
 	{
-		//PlaySoundMem(SelectSE, DX_PLAYTYPE_BACK, TRUE);
+		PlaySoundMem(SelectSE, DX_PLAYTYPE_BACK, TRUE);
 		select--;
 		if (select < 0)select = 1;
 
@@ -73,7 +90,7 @@ eSceneType RankingDispScene::Update()
 	//Lスティック上入力
 	if (InputControl::GetLeftTrigger() > 10000 && Once == TRUE)
 	{
-		//PlaySoundMem(SelectSE, DX_PLAYTYPE_BACK, TRUE);
+		PlaySoundMem(SelectSE, DX_PLAYTYPE_BACK, TRUE);
 		select++;
 		if (select > 1)select = 0;
 		Once = FALSE;
@@ -82,7 +99,7 @@ eSceneType RankingDispScene::Update()
 	//Lスティック下入力
 	if (InputControl::GetLeftTrigger() < -10000 && Once == TRUE)
 	{
-		//PlaySoundMem(SelectSE, DX_PLAYTYPE_BACK, TRUE);
+		PlaySoundMem(SelectSE, DX_PLAYTYPE_BACK, TRUE);
 		select--;
 		if (select < 0)select = 1;
 		Once = FALSE;
@@ -97,7 +114,7 @@ eSceneType RankingDispScene::Update()
 	//bボタンで遷移
 	if (InputControl::GetButtonDown(XINPUT_BUTTON_B))
 	{
-
+		PlaySoundMem(DecisionSE, DX_PLAYTYPE_BACK, TRUE);
 		switch (static_cast<Ranking>(select))
 		{
 			//ゲーム画面へ

@@ -40,6 +40,7 @@ void GameMainScene::Initialize()
 
 	//BGMの読み込み
 	((GameMainBGM = LoadSoundMem("Resource/sounds/BGM/main_bgm.wav")) == -1);
+	((HimeiSE = LoadSoundMem("Resource/Sounds/SE/「うわあーーーっ！」.mp3")) == -1);
 
 	//BGMの音量変更
 	ChangeVolumeSoundMem(140, GameMainBGM);
@@ -127,8 +128,9 @@ eSceneType GameMainScene::Update()
 			//当たり判定の確認
 			if (IsHitCheck(player, enemy[i]))
 			{
+				PlaySoundMem(HimeiSE, DX_PLAYTYPE_BACK, TRUE);
 				player->SetActive(false);
-				player->DecreaseHp(-50.0f);
+				player->DecreaseHp(-100.0f);
 				enemy[i]->Finalize();
 				delete enemy[i];
 				enemy[i] = nullptr;			

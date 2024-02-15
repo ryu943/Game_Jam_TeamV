@@ -19,6 +19,8 @@ private:
 	Item* item;
 
 	int GameMainBGM;
+	int HimeiSE;
+
 	//int item_image;
 	//Item* item;
 
