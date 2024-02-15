@@ -10,7 +10,9 @@ menu_image2(NULL),menu_image3(NULL),cursor_image(NULL),menu_cursor(0)
 
 TitleScene::~TitleScene()
 {
-	
+	//BGMの削除
+	DeleteSoundMem(TitleBGM);
+	StopSoundMem(TitleBGM);
 }
 
 //初期化処理
@@ -22,6 +24,12 @@ void TitleScene::Initialize()
 	menu_image2 = LoadGraph("Resource/images/ranking_m.bmp");
 	menu_image3 = LoadGraph("Resource/images/help_m.bmp");
 	cursor_image = LoadGraph("Resource/images/cone.bmp");
+
+	//BGMの読み込み
+	((TitleBGM = LoadSoundMem("Resource/sounds/BGM/main_bgm.wav")) == -1);
+
+	//BGMの音量変更
+	ChangeVolumeSoundMem(140, TitleBGM);
 
 	//エラーチェック
 	if (background_image == -1)
@@ -47,11 +55,16 @@ void TitleScene::Initialize()
 
 }
 
-
-
 //更新処理
 eSceneType TitleScene::Update()
 {
+
+	//BGMの再生
+	if (CheckSoundMem(TitleBGM) == 0)
+	{
+		PlaySoundMem(TitleBGM, DX_PLAYTYPE_LOOP, TRUE);
+	}
+
 	//カーソル下移動
 	if (InputControl::GetButtonDown(XINPUT_BUTTON_DPAD_DOWN))
 	{

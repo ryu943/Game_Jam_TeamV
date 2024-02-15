@@ -12,6 +12,8 @@ private:
 	int menu_image3; //メニュー画像
 	int cursor_image; //カーソル画像
 	int menu_cursor; //メニューカーソル番号
+
+	int TitleBGM;
 	
 public:
 	TitleScene();

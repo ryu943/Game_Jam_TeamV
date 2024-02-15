@@ -17,7 +17,9 @@ enemy(nullptr), item(nullptr)
 
 GameMainScene::~GameMainScene()
 {
-
+	//BGMの削除
+	DeleteSoundMem(GameMainBGM);
+	StopSoundMem(GameMainBGM);
 }
 
 //初期化処理
@@ -34,6 +36,12 @@ void GameMainScene::Initialize()
 	result = LoadDivGraph("Resource/images/car.bmp", 3, 3, 1, 63, 120, enemy_image);
 
 	item_img = LoadGraph("Resource/images/ha-to.png");
+
+	//BGMの読み込み
+	((GameMainBGM = LoadSoundMem("Resource/sounds/BGM/main_bgm.wav")) == -1);
+
+	//BGMの音量変更
+	ChangeVolumeSoundMem(140, GameMainBGM);
 
 	//エラーチェック
 	if (back_ground == -1)
@@ -69,6 +77,12 @@ void GameMainScene::Initialize()
 //更新処理
 eSceneType GameMainScene::Update()
 {
+	//BGMの再生
+	if (CheckSoundMem(GameMainBGM) == 0)
+	{
+		PlaySoundMem(GameMainBGM, DX_PLAYTYPE_LOOP, TRUE);
+	}
+
 	//プレイヤーの更新
 	player->Update();
 
