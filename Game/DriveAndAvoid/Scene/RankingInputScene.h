@@ -13,7 +13,7 @@ private:
 	char name_num; //名前入力数
 	int cursor_x; //カーソルx座標
 	int cursor_y; //カーソルｙ座標
-
+	int siro;
 public:
 	RankingInputScene();
 	virtual~RankingInputScene();

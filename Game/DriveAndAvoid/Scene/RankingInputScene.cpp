@@ -20,6 +20,7 @@ void RankingInputScene::Initialize()
 {
 	//画像の読み込み
 	background_image = LoadGraph("Resource/images/oji3.png");
+	siro= LoadGraph("Resource/images/aa.png");
 
 //エラーチェック
 if (background_image == -1)
@@ -75,10 +76,11 @@ eSceneType RankingInputScene::Update()
 void RankingInputScene::Draw() const
 {
 	//背景画像の描画
+	
+	DrawGraph(0, 0, siro, TRUE);
 	DrawGraph(0, 0, background_image, TRUE);
-
 	//名前入力指示文字列の描画
-	DrawString(400, 300, "名前を入力してください", 0xFFFFFF);
+	DrawString(400, 300, "名前を入力してください", 0x000000);
 	DrawFormatString(100, 220, GetColor(255, 255, 255), ">%s", name);
 
 	//選択用文字を描画
@@ -87,19 +89,19 @@ void RankingInputScene::Draw() const
 	{
 		int x = (i % 13) * font_size + 15;
 		int y = (i / 13) * font_size + 300;
-		DrawFormatString(x, y, GetColor(255, 255, 255), "%-3c", 'a' + i);
+		DrawFormatString(x, y, GetColor(0, 0, 0), "%-3c", 'a' + i);
 		y = ((i / 13) + 2) * font_size + 300;
-		DrawFormatString(x, y, GetColor(255, 255, 255), "%-3c", 'A' + i);
+		DrawFormatString(x, y, GetColor(0, 0, 0), "%-3c", 'A' + i);
 	}
-	DrawString(40, 405, "決定", GetColor(255, 255, 255));
-	DrawString(40 + font_size * 2, 405, "消す", GetColor(255, 255, 255));
+	DrawString(40, 405, "決定", GetColor(0, 0, 0));
+	DrawString(40 + font_size * 2, 405, "消す", GetColor(0, 0, 0));
 
 	//選択文字をフォーカスする
 	if (cursor_y < 4)
 	{
 		int x = cursor_x * font_size + 10;
 		int y = cursor_y * font_size + 295;
-		DrawBox(x, y, x + font_size, y + font_size, GetColor(255, 255, 255),
+		DrawBox(x, y, x + font_size, y + font_size, GetColor(0, 255, 0),
 			FALSE);
 	}
 	else

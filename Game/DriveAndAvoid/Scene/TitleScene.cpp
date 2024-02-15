@@ -19,7 +19,7 @@ TitleScene::~TitleScene()
 void TitleScene::Initialize()
 {
 	//画像の読み込み
-	background_image = LoadGraph("Resource/images/Title.bmp");
+	background_image = LoadGraph("Resource/images/Title.png");
 	menu_image = LoadGraph("Resource/images/menu.bmp");
 	cursor_image = LoadGraph("Resource/images/cone.bmp");
 
@@ -117,8 +117,12 @@ void TitleScene::Draw() const
 	DrawGraph(120, 200, menu_image, TRUE);
 
 	//カーソル画像の描画
-	DrawRotaGraph(90, 220 + menu_cursor * 40, 0.7, DX_PI / 2.0, cursor_image,
-		TRUE);
+	DrawRotaGraph(90, 220 + menu_cursor * 40, 0.7, DX_PI / 2.0, cursor_image, TRUE);
+
+	SetFontSize(60);
+	DrawBox(35, 40, 600, 120, GetColor(255, 255, 255), TRUE);
+	DrawString(50, 50, "歩行者天国大爆走!!", 0xff0000);
+	
 
 	// ハイライト効果の追加
 	int highlightColor = GetColor(255, 255, 255);  // ハイライトに使用する黄色
