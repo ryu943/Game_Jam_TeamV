@@ -21,13 +21,13 @@ void Item::Initialize()
 	//“–‚½‚è”»’è‚ÌÝ’è
 	box_size = Vector2D(31.0f, 60.0f);
 	//‘¬‚³‚ÌÝ’è
-	speed = (float)(this->type * 2);
+	speed = (float)(this->type * 1);
 }
 
 void Item::Update(float speed)
 {
 	float x = 0.0f;
-	if (type == 3)
+	if (type == 1)
 	{
 		x += 1.0f;
 	}

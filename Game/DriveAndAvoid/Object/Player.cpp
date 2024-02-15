@@ -124,6 +124,11 @@ void Player::DecreaseHp(float value)
 {
 	this->hp += value;
 }
+//”R—¿Œ»Ûˆ—
+void Player::DecreaseFuel(float aa)
+{
+	this->fuel += aa;
+}
 
 //ˆÊ’uî•ñæ“¾ˆ—
 Vector2D Player::GetLocation() const

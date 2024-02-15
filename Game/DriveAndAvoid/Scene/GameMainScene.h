@@ -16,8 +16,9 @@ private:
 	int enemy_count[4]; //通り過ぎた敵カウント
 	Player* player; //プレイヤー
 	Enemy** enemy; //敵
-	Item** item;
-	int item_image[3];
+
+	Item* item;
+	int item_image;
 
 	int GameMainBGM;
 	int HimeiSE;
@@ -41,5 +42,6 @@ private:
 	void ReadHighScore();
 	//当たり判定
 	bool IsHitCheck(Player* P, Enemy* e);
+	bool IsItemHitCheck(Player* P, Item* i);
 };
 
