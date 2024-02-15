@@ -36,7 +36,7 @@ void GameMainScene::Initialize()
 	  enemy_image[3] = LoadGraph("Resource/images/uparupa.png");
 	//int result = LoadDivGraph("Resource/images/car.bmp", 3, 3, 1, 63, 120, enemy_image);
 
-	item_img = LoadGraph("Resource/images/ha-to.png");
+	//item_img = LoadGraph("Resource/images/ha-to.png");
 
 	//BGMÇÃì«Ç›çûÇ›
 	((GameMainBGM = LoadSoundMem("Resource/sounds/BGM/main_bgm.wav")) == -1);
