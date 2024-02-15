@@ -32,16 +32,14 @@ void Item::Update(float speed)
 		x += 1.0f;
 	}
 	// 位置情報に移動量を加算する
-	location += Vector2D(this->speed + speed - 7);
+	location += Vector2D(x, this->speed + speed - 7);
 
 }
 
 void Item::Draw() const
 {
 	//アイテム画像の描画
-	//DrawGraph(location.x, location.y, 1.0, 0.0, Itemimg, TRUE);
 	DrawRotaGraphF(location.x, location.y, 1.0, 0.0, image, TRUE);
-
 }
 
 void Item::Finalize()
