@@ -33,7 +33,8 @@ void Enemy::Update(float speed)
 	//
 	if (type == 3)
 	{
-		x += 1.0f;
+		//x += 2.0f;
+		x = -1.0f;
 	}
 	// ˆÊ’uî•ñ‚ÉˆÚ“®—Ê‚ğ‰ÁZ‚·‚é
 	location += Vector2D(x, this->speed + speed - 6);

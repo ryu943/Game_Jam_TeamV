@@ -21,7 +21,7 @@ void Player::Initialize()
 	location = Vector2D(320.0f, 380.0f);
 	box_size = Vector2D (31.0f, 60.0f);
 	angle = 0.0f;
-	speed = 10.0f;
+	speed = 4.0f;
 	hp = 1000;
 	fuel = 20000;
 	barrier_count = 3;
@@ -43,7 +43,7 @@ void Player::Update()
 	if (!is_active)
 	{
 		angle += DX_PI_F / 24.0f;
-		speed = 1.0f;
+		//speed = 1.0f;
 		if (angle >= DX_PI_F * 4.0f)
 		{
 			is_active = true;
@@ -221,6 +221,12 @@ void Player::Acceleration()
 	{
 		speed += 1.0f;
 	}
+	
+}
+
+void Player::IncreaseSpeed(float amount)
+{
+	this->speed += amount;
 }
 
 

@@ -4,12 +4,15 @@
 
 class RankingDispScene : public SceneBase
 {
-private:
 
 private:
 	int background_image; //”wŒi‰æ‘œ
 	RankingData* ranking; //ƒ‰ƒ“ƒLƒ“ƒOî•ñ
-
+	int cursor;
+	int title;
+	int end;
+	int select;
+	bool Once;
 public:
 	RankingDispScene();
 	virtual~RankingDispScene();

@@ -31,9 +31,10 @@ void GameMainScene::Initialize()
 	//画像の読み込み
 	back_ground = LoadGraph("Resource/images/back.bmp");
 	barrier_image = LoadGraph("Resource/images/barrier.png");
-	int result = LoadDivGraph("Resource/images/3nin.png", 3, 3, 1, 63, 120,enemy_image);
-	enemy_image[3] = LoadGraph("Resource/images/uparupa.png");
-	result = LoadDivGraph("Resource/images/car.bmp", 3, 3, 1, 63, 120, enemy_image);
+	int result = LoadDivGraph("Resource/images/3nin.png", 3, 3, 1, 63, 120,
+		enemy_image);
+	  enemy_image[3] = LoadGraph("Resource/images/uparupa.png");
+	//int result = LoadDivGraph("Resource/images/car.bmp", 3, 3, 1, 63, 120, enemy_image);
 
 	item_img = LoadGraph("Resource/images/ha-to.png");
 
@@ -87,9 +88,11 @@ eSceneType GameMainScene::Update()
 	player->Update();
 
 	//移動距離の更新
-	mileage+= (int)player->GetSpeed
-	() + 5;
-
+	mileage+= (int)player->GetSpeed() + 5;
+	// 1000進むごとにspeedUP
+	if (mileage % 1000 == 0) {
+		player->IncreaseSpeed(1.0f); // 1.0f の値を調整してスピードの増加量を変える
+	}
 	//敵生成処理
 	if (mileage / 20 % 100 == 0)
 	{
@@ -133,20 +136,20 @@ eSceneType GameMainScene::Update()
 		}
 	}
 
-	//アイテム生成処理
-	if (mileage / 10 % 100 == 0)
-	{
-		for (int i = 0; i < 10; i++)
-		{
-			if (item == nullptr)
-			{
-				int type = GetRand(4) % 4;
-				item = new Item(type, item_img);
-				item->Initialize();
-				break;
-			}
-		}
-	}
+	////アイテム生成
+	//if (mileage / 20 % 100 == 0)
+	//{
+	//	for (int i = 0; i < 10; i++)
+	//	{
+	//		if (item == nullptr)
+	//		{
+	//			int type = GetRand(3) % 3;
+	//			item = new Item(type, item_image);
+	//			item->Initialize();
+	//			break;
+	//		}
+	//	}
+	//}
 
 	//if (item != nullptr)
 	//{
@@ -166,7 +169,13 @@ eSceneType GameMainScene::Update()
 	// 障害物生成
 	//if (mileage / 20 % 100 == 0)
 	//{
+	//	player->SetActive(false);
+	//	player->DecreaseHp(-50.0f);
+	//	enemy[i]->Finalize();
+	//	delete enemy[i];
+	//	enemy[i] = nullptr;
 	//}
+	
 	//プレイヤーの燃料か体力が0未満なら、リザルトに転移する
 	if (player->GetFuel() < 0.0f || player->GetHp() < 0.0f)
 	{
