@@ -1,7 +1,6 @@
 #include"TitleScene.h"
 #include"../Utility/InputControl.h"
 #include"DxLib.h"
-#include <ctime>
 
 TitleScene::TitleScene() : background_image(NULL), menu_image(NULL),
 cursor_image(NULL), menu_cursor(0)
@@ -85,18 +84,12 @@ eSceneType TitleScene::Update()
 		}
 	}
 	
+
+	//カーソル決定(決定した画面に遷移する
 	if (InputControl::GetButtonDown(XINPUT_BUTTON_B))
 	{
-		cursor_selected_time = std::clock();
-	}
-
-	//カーソル決定(決定した画面に遷移する)
-	if (cursor_selected_time > 0 && ((std::clock() - cursor_selected_time) / CLOCKS_PER_SEC) > transition_delay)
-	{
-		cursor_selected_time = 0;
-
 		PlaySoundMem(DecisionSE, DX_PLAYTYPE_BACK, TRUE);
-		switch(menu_cursor)
+		switch (menu_cursor)
 		{
 		case 0:
 			return eSceneType::E_MAIN;
@@ -109,6 +102,7 @@ eSceneType TitleScene::Update()
 		}
 	}
 
+	
 	//現在のシーンタイプを返す
 	return GetNowScene();
 }

@@ -3,6 +3,7 @@
 #include "../Object/Item.h"
 #include"DxLib.h"
 #include<math.h>
+#include "../Utility/InputControl.h"
 
 GameMainScene::GameMainScene() : high_score(0), back_ground(NULL),
 barrier_image(NULL),
@@ -14,6 +15,7 @@ enemy(nullptr), item(nullptr)
 		enemy_image[i] = NULL;
 		enemy_count[i] = NULL;
 	}
+	PauseFlg = FALSE;
 }
 
 GameMainScene::~GameMainScene()
@@ -94,46 +96,50 @@ eSceneType GameMainScene::Update()
 	{
 		PlaySoundMem(GameMainBGM, DX_PLAYTYPE_LOOP, TRUE);
 	}
-
-	//プレイヤーの更新
-	player->Update();
-
-	//移動距離の更新
-	mileage+= (int)player->GetSpeed() + 5;
-	// 1000進むごとにspeedUP
-	if (mileage % 1000 == 0) {
-		player->IncreaseSpeed(1.0f); // 1.0f の値を調整してスピードの増加量を変える
-	}
-	//敵生成処理
-	if (mileage / 20 % 100 == 0)
+	//ポーズフラグ切り替え処理
+	if (InputControl::GetButtonDown(XINPUT_BUTTON_START))
 	{
-		for (int i = 0; i < 10; i++)
+		PauseFlg = !PauseFlg;
+	}
+	if (PauseFlg == FALSE) {
+		//プレイヤーの更新
+		player->Update();
+		//移動距離の更新
+		mileage += (int)player->GetSpeed() + 5;
+		// 1000進むごとにspeedUP
+		if (mileage % 600 == 0) {
+			player->IncreaseSpeed(1.0f); // 1.0f の値を調整してスピードの増加量を変える
+		}
+		//敵生成処理
+		if (mileage / 20 % 100 == 0)
 		{
-			if (enemy[i] == nullptr)
+			for (int i = 0; i < 10; i++)
 			{
-				int type = GetRand(4) % 4;
-				enemy[i] = new Enemy(type, enemy_image[type]);
-				enemy[i]->Initialize();
-				break;
+				if (enemy[i] == nullptr)
+				{
+					int type = GetRand(4) % 4;
+					enemy[i] = new Enemy(type, enemy_image[type]);
+					enemy[i]->Initialize();
+					break;
+				}
 			}
 		}
-	}
 
-	//敵の更新と当たり判定チェック
-	for (int i = 0; i < 10; i++)
-	{
-		if (enemy[i] != nullptr)
+		//敵の更新と当たり判定チェック
+		for (int i = 0; i < 10; i++)
 		{
-			enemy[i]->Update(player->GetSpeed());
-
-			//画面外に行ったら、敵を削除してスコア加算
-			if (enemy[i]->GetLocation().y >= 640.0f)
+			if (enemy[i] != nullptr)
 			{
-				enemy_count[enemy[i]->GetType()]++;
-				enemy[i]->Finalize();
-				delete enemy[i];
-				enemy[i] = nullptr;
-			}
+				enemy[i]->Update(player->GetSpeed());
+
+				//画面外に行ったら、敵を削除してスコア加算
+				if (enemy[i]->GetLocation().y >= 640.0f)
+				{
+					enemy_count[enemy[i]->GetType()]++;
+					enemy[i]->Finalize();
+					delete enemy[i];
+					enemy[i] = nullptr;
+				}
 
 			//当たり判定の確認
 			if (IsHitCheck(player, enemy[i]))
@@ -145,6 +151,27 @@ eSceneType GameMainScene::Update()
 				delete enemy[i];
 				enemy[i] = nullptr;			
 			}	
+				//当たり判定の確認
+				if (IsHitCheck(player, enemy[i]))
+				{
+					player->SetActive(false);
+					player->DecreaseHp(-50.0f);
+					enemy[i]->Finalize();
+					delete enemy[i];
+					enemy[i] = nullptr;
+				}
+			}
+		}
+	}
+	
+	//一時停止中
+	if (PauseFlg == TRUE)
+	{
+	
+		//　Bボタンでタイトルに戻る
+		if (InputControl::GetButtonDown(XINPUT_BUTTON_B)) {
+			// タイトル画面へ遷移
+			return eSceneType::E_TITLE;
 		}
 	}
 
@@ -248,10 +275,8 @@ void GameMainScene::Draw() const
 	DrawFormatString(510, 80, GetColor(0, 0, 0), "避けた数");
 		for (int i = 0; i < 3; i++)
 		{
-			DrawRotaGraph(523 + (i * 50), 120, 0.3, 0, enemy_image[i], TRUE,
-				FALSE);
-			DrawFormatString(510 + (i * 50), 140, GetColor(255, 255, 255), "%03d",
-				enemy_count[i]);
+			DrawRotaGraph(523 + (i * 50), 120, 0.3, 0, enemy_image[i], TRUE,FALSE);
+			DrawFormatString(510 + (i * 50), 140, GetColor(255, 255, 255), "%03d",enemy_count[i]);
 		}
 		DrawFormatString(510, 200, GetColor(0, 0, 0), "走行距離");
 		DrawFormatString(510, 220, GetColor(255, 255, 255), "%08d", mileage / 10);
@@ -281,6 +306,19 @@ void GameMainScene::Draw() const
 		GetColor(255, 0, 0), TRUE);
 	DrawBoxAA(fx, fy + 20.0f, fx + 100.0f, fy + 40.0f, GetColor(0, 0, 0),
 		FALSE);
+	//一時停止中の描画
+	if (PauseFlg == TRUE)
+	{
+		SetDrawBlendMode(DX_BLENDMODE_ALPHA, 200);
+		DrawBox(0, 0, 940, 780, 0x000000, TRUE);
+		SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 255);
+		SetFontSize(20);
+		DrawString(200, 200, "---ポーズ中---", 0xffffff, TRUE);
+		
+		DrawString(200, 100, "Startボタンで再開", 0xffffff, TRUE);
+
+		DrawString(200, 300, "Bボタンでタイトルへ", 0xffffff, TRUE);
+	}
 }
 
 //終了時処理

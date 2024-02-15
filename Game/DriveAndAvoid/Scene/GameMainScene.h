@@ -8,17 +8,19 @@
 class GameMainScene : public SceneBase
 {
 private:
-	int high_score; //ƒnƒCƒXƒRƒA
-	int back_ground; //”wŒi‰æ‘œ
-	int barrier_image; //ƒoƒŠƒA‰æ‘œ
-	int mileage; //‘–s‹——£
-	int enemy_image[4];//“G‰æ‘œ
-	int enemy_count[4]; //’Ê‚è‰ß‚¬‚½“GƒJƒEƒ“ƒg
-	Player* player; //ƒvƒŒƒCƒ„[
-	Enemy** enemy; //“G
+	int high_score; //ï¿½nï¿½Cï¿½Xï¿½Rï¿½A
+	int back_ground; //ï¿½wï¿½iï¿½æ‘œ
+	int barrier_image; //ï¿½oï¿½ï¿½ï¿½Aï¿½æ‘œ
+	int mileage; //ï¿½ï¿½ï¿½sï¿½ï¿½ï¿½ï¿½
+	int enemy_image[4];//ï¿½Gï¿½æ‘œ
+	int enemy_count[4]; //ï¿½Ê‚ï¿½ß‚ï¿½ï¿½ï¿½ï¿½Gï¿½Jï¿½Eï¿½ï¿½ï¿½g
+	Player* player; //ï¿½vï¿½ï¿½ï¿½Cï¿½ï¿½ï¿½[
+	Enemy** enemy; //ï¿½G
 
 	Item* item;
 	int item_image;
+
+	bool PauseFlg;          //ï¿½êï¿½ï¿½~ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½f
 
 	int GameMainBGM;
 	int HimeiSE;
@@ -38,9 +40,9 @@ public:
 	virtual eSceneType GetNowScene() const override;
 
 private:
-	//ƒnƒCƒXƒRƒA“Ç‚İ‚İˆ—
+	//ï¿½nï¿½Cï¿½Xï¿½Rï¿½Aï¿½Ç‚İï¿½ï¿½İï¿½ï¿½ï¿½
 	void ReadHighScore();
-	//“–‚½‚è”»’è
+	//ï¿½ï¿½ï¿½ï¿½ï¿½è”»ï¿½ï¿½
 	bool IsHitCheck(Player* P, Enemy* e);
 	bool IsItemHitCheck(Player* P, Item* i);
 };
