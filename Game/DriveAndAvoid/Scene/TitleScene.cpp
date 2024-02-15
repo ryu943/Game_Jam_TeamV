@@ -26,7 +26,12 @@ void TitleScene::Initialize()
 	cursor_image = LoadGraph("Resource/images/cone.bmp");
 
 	//BGMの読み込み
-	((TitleBGM = LoadSoundMem("Resource/sounds/BGM/main_bgm.wav")) == -1);
+	((TitleBGM = LoadSoundMem("Resource/sounds/BGM/title_bgm.wav")) == -1);
+
+	// SEの読み込み
+	((DecisionSE = LoadSoundMem("Resource/Sounds/SE/Cursor_SE.wav")) == -1);
+	// SEの読み込み
+	((SelectSE = LoadSoundMem("Resource/Sounds/SE/Kettei_SE.wav")) == -1);
 
 	//BGMの音量変更
 	ChangeVolumeSoundMem(140, TitleBGM);
@@ -58,7 +63,6 @@ void TitleScene::Initialize()
 //更新処理
 eSceneType TitleScene::Update()
 {
-
 	//BGMの再生
 	if (CheckSoundMem(TitleBGM) == 0)
 	{
@@ -69,6 +73,7 @@ eSceneType TitleScene::Update()
 	if (InputControl::GetButtonDown(XINPUT_BUTTON_DPAD_DOWN))
 	{
 		menu_cursor++;
+		PlaySoundMem(SelectSE, DX_PLAYTYPE_BACK, TRUE);
 		//１番下に到達したら、一番上にする
 		if (menu_cursor > 3)
 		{
@@ -80,6 +85,7 @@ eSceneType TitleScene::Update()
 	if (InputControl::GetButtonDown(XINPUT_BUTTON_DPAD_UP))
 	{
 		menu_cursor--;
+		PlaySoundMem(SelectSE, DX_PLAYTYPE_BACK, TRUE);
 		//一番上に到達したら、一番下にする
 		if (menu_cursor < 0)
 		{
@@ -91,7 +97,7 @@ eSceneType TitleScene::Update()
 	//カーソル決定(決定した画面に遷移する)
 	if (InputControl::GetButtonDown(XINPUT_BUTTON_B))
 	{
-
+		PlaySoundMem(DecisionSE, DX_PLAYTYPE_BACK, TRUE);
 		switch(menu_cursor)
 		{
 		case 0:

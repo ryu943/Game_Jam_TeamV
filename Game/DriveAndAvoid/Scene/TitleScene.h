@@ -14,6 +14,8 @@ private:
 	int menu_cursor; //メニューカーソル番号
 
 	int TitleBGM;
+	int DecisionSE;
+	int SelectSE;
 	
 public:
 	TitleScene();
