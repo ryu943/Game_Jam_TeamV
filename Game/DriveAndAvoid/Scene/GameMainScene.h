@@ -22,7 +22,7 @@ private:
 
 	int GameMainBGM;
 	int HimeiSE;
-
+	int KaihukuSE;
 	
 
 public:

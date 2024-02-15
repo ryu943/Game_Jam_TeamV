@@ -37,12 +37,13 @@ void GameMainScene::Initialize()
 	enemy_image[3] = LoadGraph("Resource/images/uparupa.png");
 	//int result = LoadDivGraph("Resource/images/car.bmp", 3, 3, 1, 63, 120, enemy_image);
 
-	item_image = LoadGraph("Resource/images/touyu_tank.png");
+	item_image = LoadGraph("Resource/images/ha-to.png");
 	//item_image[1] = LoadGraph("Resource/images/touyu_tank.png");
 
 	//BGMの読み込み
 	((GameMainBGM = LoadSoundMem("Resource/sounds/BGM/main_bgm.wav")) == -1);
 	((HimeiSE = LoadSoundMem("Resource/Sounds/SE/「うわあーーーっ！」.mp3")) == -1);
+	((KaihukuSE = LoadSoundMem("Resource/Sounds/SE/回復.mp3")) == -1);
 
 	//BGMの音量変更
 	ChangeVolumeSoundMem(140, GameMainBGM);
@@ -179,7 +180,8 @@ eSceneType GameMainScene::Update()
 			//当たり判定の確認
 			if (IsItemHitCheck(player, item))
 			{
-				player->DecreaseFuel(+100.0f);
+				PlaySoundMem(KaihukuSE, DX_PLAYTYPE_BACK, TRUE);
+				player->IncreaseSpeed(1.0f);
 				item->Finalize();
 				delete item;
 				item = nullptr;

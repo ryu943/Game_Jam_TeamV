@@ -125,9 +125,9 @@ void Player::DecreaseHp(float value)
 	this->hp += value;
 }
 //”R—¿Œ»Ûˆ—
-void Player::DecreaseFuel(float aa)
+void Player::DecreaseFuel(float value)
 {
-	this->fuel += aa;
+	this->fuel *= value;
 }
 
 //ˆÊ’uî•ñŽæ“¾ˆ—

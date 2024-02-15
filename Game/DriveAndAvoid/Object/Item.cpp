@@ -21,7 +21,7 @@ void Item::Initialize()
 	//“–‚½‚è”»’è‚Ìİ’è
 	box_size = Vector2D(31.0f, 60.0f);
 	//‘¬‚³‚Ìİ’è
-	speed = (float)(this->type * 1);
+	speed = (float)(this->type * 2);
 }
 
 void Item::Update(float speed)
@@ -32,7 +32,7 @@ void Item::Update(float speed)
 		x += 1.0f;
 	}
 	// ˆÊ’uî•ñ‚ÉˆÚ“®—Ê‚ğ‰ÁZ‚·‚é
-	location += Vector2D(x, this->speed + speed - 6);
+	location += Vector2D(this->speed + speed - 7);
 
 }
 
