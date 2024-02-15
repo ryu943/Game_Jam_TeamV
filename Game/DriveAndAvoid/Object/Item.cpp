@@ -39,7 +39,9 @@ void Item::Update(float speed)
 void Item::Draw() const
 {
 	//ƒAƒCƒeƒ€‰æ‘œ‚Ì•`‰æ
-	DrawGraph(location.x, location.y, Itemimg, TRUE);
+	//DrawGraph(location.x, location.y, 1.0, 0.0, Itemimg, TRUE);
+	DrawRotaGraphF(location.x, location.y, 1.0, 0.0, image, TRUE);
+
 }
 
 void Item::Finalize()

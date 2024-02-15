@@ -1,5 +1,6 @@
 #include"GameMainScene.h"
 #include"../Object/RankingData.h"
+#include "../Object/Item.h"
 #include"DxLib.h"
 #include<math.h>
 
@@ -33,10 +34,10 @@ void GameMainScene::Initialize()
 	barrier_image = LoadGraph("Resource/images/barrier.png");
 	int result = LoadDivGraph("Resource/images/3nin.png", 3, 3, 1, 63, 120,
 		enemy_image);
-	  enemy_image[3] = LoadGraph("Resource/images/uparupa.png");
+	enemy_image[3] = LoadGraph("Resource/images/uparupa.png");
 	//int result = LoadDivGraph("Resource/images/car.bmp", 3, 3, 1, 63, 120, enemy_image);
 
-	//item_img = LoadGraph("Resource/images/ha-to.png");
+	item_img[3] = LoadGraph("Resource/images/ha-to.png");
 
 	//BGMの読み込み
 	((GameMainBGM = LoadSoundMem("Resource/sounds/BGM/main_bgm.wav")) == -1);
@@ -63,15 +64,19 @@ void GameMainScene::Initialize()
 	//オブジェクトの初期化
 	player = new Player;
 	enemy = new Enemy * [10];
-	item = new Item;
+	//item = new Item;
 
 	//オブジェクトの初期化
 	player -> Initialize();
-	item->Initialize();
 
 	for (int i = 0; i < 10; i++)
 	{
 		enemy[i] = nullptr;
+	}
+
+	for (int i = 0; i < 10; i++)
+	{
+		item[i] = nullptr;
 	}
 
 }
@@ -138,35 +143,49 @@ eSceneType GameMainScene::Update()
 		}
 	}
 
-	////アイテム生成
-	//if (mileage / 20 % 100 == 0)
-	//{
-	//	for (int i = 0; i < 10; i++)
-	//	{
-	//		if (item == nullptr)
-	//		{
-	//			int type = GetRand(3) % 3;
-	//			item = new Item(type, item_image);
-	//			item->Initialize();
-	//			break;
-	//		}
-	//	}
-	//}
 
-	//if (item != nullptr)
-	//{
-	//	item->Update(player->GetSpeed());
+	//アイテム生成
+	if (mileage / 20 % 100 == 0)
+	{
+		for (int i = 0; i < 10; i++)
+		{
+			if (item == nullptr)
+			{
+				int type = GetRand(3) % 3;
+				item[i] = new Item(type, item_image[type]);
+				//item->Initialize();
+				break;
+			}
+		}
+	}
+	//アイテムとの更新と当たり判定チェック
+	for (int i = 0; i < 10; i++)
+	{
+		if (item[i] != nullptr)
+		{
+			enemy[i]->Update(player->GetSpeed());
 
-	//	//当たり判定の確認
-	//	if (IsHitCheck(player, item))
-	//	{
-	//		player->SetActive(false);
-	//		player->DecreaseHp(-50.0f);
-	//		item->Finalize();
-	//		delete item;
-	//		item = nullptr;
-	//	}
-	//}
+			//画面外に行ったら、敵を削除してスコア加算
+			if (enemy[i]->GetLocation().y >= 640.0f)
+			{
+				enemy_count[enemy[i]->GetType()]++;
+				enemy[i]->Finalize();
+				delete enemy[i];
+				enemy[i] = nullptr;
+			}
+
+			//当たり判定の確認
+			if (IsHitCheck(player, enemy[i]))
+			{
+				PlaySoundMem(HimeiSE, DX_PLAYTYPE_BACK, TRUE);
+				player->SetActive(false);
+				player->DecreaseHp(-100.0f);
+				enemy[i]->Finalize();
+				delete enemy[i];
+				enemy[i] = nullptr;
+			}
+		}
+	}
 
 	// 障害物生成
 	//if (mileage / 20 % 100 == 0)
@@ -201,10 +220,18 @@ void GameMainScene::Draw() const
 			enemy[i]->Draw();
 		}
 	}
+	
+	//アイテムの描画
+	for (int i = 0; i < 10; i++)
+	{
+		if (item[i] != nullptr)
+		{
+			item[i]->Draw();
+		}
+	}
 
 	//プレイヤーの描画
 	player->Draw();
-	item->Draw();
 
 	//for (int i = 0; i < 3; i++)
 	//{

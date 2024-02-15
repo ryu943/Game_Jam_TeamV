@@ -16,13 +16,13 @@ private:
 	int enemy_count[4]; //通り過ぎた敵カウント
 	Player* player; //プレイヤー
 	Enemy** enemy; //敵
-	Item* item;
+	Item** item;
+	int item_image[3];
 
 	int GameMainBGM;
 	int HimeiSE;
 
-	//int item_image;
-	//Item* item;
+	
 
 public:
 	GameMainScene();
