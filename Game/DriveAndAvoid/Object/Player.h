@@ -34,8 +34,9 @@ public:
 	float GetHp() const;//体力取得
 	int GetBarriarCount() const;//バリアの枚数取得
 	bool IsBarrier() const;//バリア有効か？を取得
-
+	void IncreaseSpeed(float amount);
 private:
 	void Movement(); //移動処理
 	void Acceleration(); //加速処理
+
 };

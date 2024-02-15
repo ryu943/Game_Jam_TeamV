@@ -82,9 +82,11 @@ eSceneType GameMainScene::Update()
 	player->Update();
 
 	//移動距離の更新
-	mileage+= (int)player->GetSpeed
-	() + 5;
-
+	mileage+= (int)player->GetSpeed() + 5;
+	// 1000進むごとにspeedUP
+	if (mileage % 1000 == 0) {
+		player->IncreaseSpeed(1.0f); // 1.0f の値を調整してスピードの増加量を変える
+	}
 	//敵生成処理
 	if (mileage / 20 % 100 == 0)
 	{
