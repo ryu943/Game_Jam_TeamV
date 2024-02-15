@@ -1,9 +1,10 @@
 #include"TitleScene.h"
 #include"../Utility/InputControl.h"
 #include"DxLib.h"
+#include <ctime>
 
 TitleScene::TitleScene() : background_image(NULL), menu_image(NULL),
-menu_image2(NULL),menu_image3(NULL),cursor_image(NULL),menu_cursor(0)
+cursor_image(NULL), menu_cursor(0)
 {
 
 }
@@ -18,9 +19,7 @@ void TitleScene::Initialize()
 {
 	//画像の読み込み
 	background_image = LoadGraph("Resource/images/Title.bmp");
-	menu_image = LoadGraph("Resource/images/start_m.bmp");
-	menu_image2 = LoadGraph("Resource/images/ranking_m.bmp");
-	menu_image3 = LoadGraph("Resource/images/help_m.bmp");
+	menu_image = LoadGraph("Resource/images/menu.bmp");
 	cursor_image = LoadGraph("Resource/images/cone.bmp");
 
 	//エラーチェック
@@ -32,14 +31,7 @@ void TitleScene::Initialize()
 	{
 		throw("Resource/images/start_m.bmpがありません\n");
 	}
-	if (menu_image2 == -1)
-	{
-		throw("Resource/images/ranking_m.bmpがありません\n");
-	}
-	if (menu_image3 == -1)
-	{
-		throw("Resource/images/help_m.bmpがありません\n");
-	}
+	
 	if (cursor_image == -1)
 	{
 		throw("Resource/images/cone.bmpがありません\n");
@@ -74,10 +66,15 @@ eSceneType TitleScene::Update()
 		}
 	}
 	
-
-	//カーソル決定(決定した画面に遷移する)
 	if (InputControl::GetButtonDown(XINPUT_BUTTON_B))
 	{
+		cursor_selected_time = std::clock();
+	}
+
+	//カーソル決定(決定した画面に遷移する)
+	if (cursor_selected_time > 0 && ((std::clock() - cursor_selected_time) / CLOCKS_PER_SEC) > transition_delay)
+	{
+		cursor_selected_time = 0;
 
 		switch(menu_cursor)
 		{
@@ -104,14 +101,66 @@ void TitleScene::Draw() const
 
 	//メニュー画像の描画
 	DrawGraph(120, 200, menu_image, TRUE);
-	DrawGraph(120, 240, menu_image2, TRUE);
-	DrawGraph(100, 280, menu_image3, TRUE);
 
 	//カーソル画像の描画
 	DrawRotaGraph(90, 220 + menu_cursor * 40, 0.7, DX_PI / 2.0, cursor_image,
 		TRUE);
 
+	// ハイライト効果の追加
+	int highlightColor = GetColor(255, 255, 255);  // ハイライトに使用する黄色
+	int pressedColor = GetColor(255, 0, 0);  // ボタンが押されたときの色
 
+	switch (menu_cursor)
+	{
+	case 0:
+		if (InputControl::GetButtonDown(XINPUT_BUTTON_B)) {
+			SetDrawBlendMode(DX_BLENDMODE_ADD, 128);
+			DrawBox(110, 200 + menu_cursor * 40, 280, 240 + menu_cursor * 40, pressedColor, TRUE);
+			SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);  // ブレンドモードを元に戻す
+		}
+		else {
+			SetDrawBlendMode(DX_BLENDMODE_ADD, 128);  // 透明度を変更してハイライト効果を追加
+			DrawBox(110, 200 + menu_cursor * 40, 400, 240 + menu_cursor * 40, highlightColor, TRUE);
+			SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);  // ブレンドモードを元に戻す
+		}
+		break;
+	case 1:
+		if (InputControl::GetButtonDown(XINPUT_BUTTON_B)) {
+			SetDrawBlendMode(DX_BLENDMODE_ADD, 128);
+			DrawBox(110, 240, 280, 280, pressedColor, TRUE);
+			SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);  // ブレンドモードを元に戻す
+		}
+		else {
+			SetDrawBlendMode(DX_BLENDMODE_ADD, 128);  // 透明度を変更してハイライト効果を追加
+			DrawBox(110, 200 + menu_cursor * 40, 400, 240 + menu_cursor * 40, highlightColor, TRUE);
+			SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);  // ブレンドモードを元に戻す
+		}
+		break;
+	case 2:
+		if (InputControl::GetButtonDown(XINPUT_BUTTON_B)) {
+			SetDrawBlendMode(DX_BLENDMODE_ADD, 128);
+			DrawBox(110, 280, 280, 320, pressedColor, TRUE);
+			SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);  // ブレンドモードを元に戻す
+		}
+		else {
+			SetDrawBlendMode(DX_BLENDMODE_ADD, 128);  // 透明度を変更してハイライト効果を追加
+			DrawBox(110, 200 + menu_cursor * 40, 400, 240 + menu_cursor * 40, highlightColor, TRUE);
+			SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);  // ブレンドモードを元に戻す
+		}
+		break;
+	case 3:
+		if (InputControl::GetButtonDown(XINPUT_BUTTON_B)) {
+			SetDrawBlendMode(DX_BLENDMODE_ADD, 128);
+			DrawBox(110, 320, 280, 360, pressedColor, TRUE);
+			SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);  // ブレンドモードを元に戻す
+		}
+		else {
+			SetDrawBlendMode(DX_BLENDMODE_ADD, 128);  // 透明度を変更してハイライト効果を追加
+			DrawBox(110, 200 + menu_cursor * 40, 400, 240 + menu_cursor * 40, highlightColor, TRUE);
+			SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);  // ブレンドモードを元に戻す
+		}
+		break;
+	}
 }
 
 

@@ -3,7 +3,7 @@
 #include "Scene/TitleScene.h"
 #include "Utility/InputControl.h"
 
-EndScene::EndScene() : background_image(NULL),cursor_image(NULL), menu_cursor(0),end_image(NULL), countdown_timer(4000)
+EndScene::EndScene() : background_image(NULL), menu_cursor(0),end_image(NULL), countdown_timer(3000)
 {
 
 }
@@ -19,7 +19,6 @@ void EndScene::Initialize()
     //画像の読み込み
     background_image = LoadGraph("Resource/images/End.bmp");
     end_image = LoadGraph("Resource/images/end_m.bmp");
-    cursor_image = LoadGraph("Resource/images/cone.bmp");
 
     //エラーチェック
     if (background_image == -1)
@@ -30,10 +29,7 @@ void EndScene::Initialize()
     {
         throw("Resource/images/end_m.bmpがありません\n");
     }
-    if (cursor_image == -1)
-    {
-        throw("Resource/images/cone.bmpがありません\n");
-    }
+
 
     // 初期化時に現在の時間を記録
     start_time = GetNowCount();
@@ -61,14 +57,26 @@ eSceneType EndScene::Update()
 void EndScene::Draw() const
 {
     //背景画像の描画
-    DrawGraph(0, 0, background_image, FALSE);
-    SetFontSize(30);
-    DrawString(20, 120, "エンド画面", 0xffffff, 0);
+    //DrawGraph(0, 0, background_image, FALSE);
+    SetFontSize(40);
+ 
     //エンド画像の描画
-    DrawGraph(120, 200, end_image, TRUE);
-    //カーソル画像の描画
-    DrawRotaGraph(90, 220 + menu_cursor * 40, 0.7, DX_PI / 2.0, cursor_image,
-        TRUE);
+    DrawGraph(220, 400, end_image, TRUE);
+
+    DrawString(100, 50, "制作<チームV>", GetColor(255, 255, 255));
+    
+    // メンバー1の名前を描画
+    DrawString(50,100, "石嶺　龍", GetColor(255, 255, 255));
+
+    // メンバー2の名前を描画
+    DrawString(50, 150, "當銘　耀斗", GetColor(255, 255, 255));
+
+    // メンバー3の名前を描画
+    DrawString(50, 200, "新田　陽人", GetColor(255, 255, 255));
+
+    // メンバー4の名前を描画
+    DrawString(50, 250, "前泊　愛翔", GetColor(255, 255, 255));
+
 }
 
 //終了時処理
@@ -77,7 +85,6 @@ void EndScene::Finalize()
     //読み込んだ画像の削除
     DeleteGraph(background_image);
     DeleteGraph(end_image);
-    DeleteGraph(cursor_image);
 
 }
 

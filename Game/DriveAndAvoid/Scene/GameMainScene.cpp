@@ -154,6 +154,15 @@ eSceneType GameMainScene::Update()
 	//	delete enemy[i];
 	//	enemy[i] = nullptr;
 	//}
+	// áŠQ•¨¶¬
+	//if (mileage / 20 % 100 == 0)
+	//{
+	//	player->SetActive(false);
+	//	player->DecreaseHp(-50.0f);
+	//	enemy[i]->Finalize();
+	//	delete enemy[i];
+	//	enemy[i] = nullptr;
+	//}
 	
 	//ƒvƒŒƒCƒ„[‚Ì”R—¿‚©‘Ì—Í‚ª0–¢–ž‚È‚çAƒŠƒUƒ‹ƒg‚É“]ˆÚ‚·‚é
 	if (player->GetFuel() < 0.0f || player->GetHp() < 0.0f)
