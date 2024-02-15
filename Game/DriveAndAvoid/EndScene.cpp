@@ -3,7 +3,7 @@
 #include "Scene/TitleScene.h"
 #include "Utility/InputControl.h"
 
-EndScene::EndScene() : background_image(NULL), menu_cursor(0),end_image(NULL), countdown_timer(4000)
+EndScene::EndScene() : background_image(NULL), menu_cursor(0),end_image(NULL), countdown_timer(3000)
 {
 
 }
