@@ -32,7 +32,7 @@ void TitleScene::Initialize()
 	((SelectSE = LoadSoundMem("Resource/Sounds/SE/Kettei_SE.wav")) == -1);
 
 	//BGMの音量変更
-	ChangeVolumeSoundMem(140, TitleBGM);
+	ChangeVolumeSoundMem(200, TitleBGM);
 
 	//エラーチェック
 	if (background_image == -1)

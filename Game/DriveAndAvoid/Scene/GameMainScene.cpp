@@ -48,7 +48,7 @@ void GameMainScene::Initialize()
 	((KaihukuSE = LoadSoundMem("Resource/Sounds/SE/回復.mp3")) == -1);
 
 	//BGMの音量変更
-	ChangeVolumeSoundMem(140, GameMainBGM);
+	ChangeVolumeSoundMem(200, GameMainBGM);
 
 	//エラーチェック
 	if (back_ground == -1)
